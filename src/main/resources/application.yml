@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: api-zenon
+
+  liquibase:
+    change-log: classpath:db/master-changelog.xml

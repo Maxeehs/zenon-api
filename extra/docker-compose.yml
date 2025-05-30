@@ -1,0 +1,19 @@
+version: '3.8'
+
+name: zenon
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb_alnitaka_zenon
+    environment:
+      MYSQL_ROOT_PASSWORD: root100
+      MYSQL_DATABASE: zenon
+      MYSQL_USER: zenon
+      MYSQL_PASSWORD: zenonPass
+    ports:
+      - "3315:3306"
+    volumes:
+      - maria_data:/var/lib/mysql
+
+volumes:
+  maria_data:
