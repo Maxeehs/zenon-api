@@ -30,7 +30,7 @@ public class SecurityConfig {
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/auth/**", "swagger-ui/**", "/v3/api-docs/**").permitAll()
+						.requestMatchers("/api/auth/**", "swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
 						.anyRequest().authenticated()
 				).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 		
