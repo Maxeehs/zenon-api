@@ -61,7 +61,7 @@ public class AuthController {
 		newUser.setFirstname(req.getFirstname());
 		newUser.setLastname(req.getLastname());
 		newUser.setActive(true);
-		newUser.setRoles(Set.of(Role.ROLE_USER, Role.ROLE_ADMIN));
+		newUser.setRoles(Set.of(Role.ROLE_USER));
 		userRepository.save(newUser);
 		
 		// Authentifier l'utilisateur pour générer le JWT
