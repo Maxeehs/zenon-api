@@ -9,5 +9,4 @@ class ApiZenonApplicationTests {
 //	@Test
 	void contextLoads() {
 	}
-
 }
