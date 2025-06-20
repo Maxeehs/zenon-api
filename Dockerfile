@@ -29,7 +29,7 @@ COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
 
 # Réglages mémoire Java (à adapter selon vos besoins)
-ENV JAVA_OPTS="-Xms512m -Xmx1024m"
+ENV JAVA_OPTS="-Xms512m -Xmx1024m -Dspring.profiles.active=dev"
 
 # Healthcheck optionnel (requiert actuator sur /actuator/health)
 HEALTHCHECK --interval=1m --timeout=10s \
