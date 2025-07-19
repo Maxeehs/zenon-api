@@ -15,6 +15,7 @@ public class ProjectService {
 	private final ProjectRepository projectRepo;
 	private final UserService userService;
 	private static final String NO_AUTH = "Non authentifié";
+	private static final String NO_PROJECT = "Projet introuvable";
 
 	public List<Project> listProjects() {
 		String email = userService.getCurrentUser()
@@ -27,7 +28,7 @@ public class ProjectService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		return projectRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Projet introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_PROJECT));
 	}
 
 	public Project create(Project newProject) {
@@ -41,7 +42,7 @@ public class ProjectService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		Project existing = projectRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Projet introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_PROJECT));
 		// Appliquer les changements voulus
 		existing.setNom(updatedProject.getNom());
 		// …
@@ -52,7 +53,7 @@ public class ProjectService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		Project existing = projectRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Projet introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_PROJECT));
 		projectRepo.delete(existing);
 	}
 }

@@ -15,6 +15,7 @@ public class ClientService {
 	private final ClientRepository clientRepo;
 	private final UserService userService;
 	private static final String NO_AUTH = "Non authentifié";
+	private static final String NO_CLIENT = "Client introuvable";
 
 	public List<Client> listMyClients() {
 		String email = userService.getCurrentUser()
@@ -27,7 +28,7 @@ public class ClientService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		return clientRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Client introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_CLIENT));
 	}
 
 	public Client create(Client dto) {
@@ -41,7 +42,7 @@ public class ClientService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		Client existing = clientRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Client introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_CLIENT));
 		// Appliquer les changements voulus
 		existing.setNom(update.getNom());
 		existing.setEmail(update.getEmail());
@@ -53,7 +54,7 @@ public class ClientService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		Client existing = clientRepo.findByIdAndOwnerId(id, me.getId())
-			.orElseThrow(() -> new EntityNotFoundException("Client introuvable"));
+			.orElseThrow(() -> new EntityNotFoundException(NO_CLIENT));
 		clientRepo.delete(existing);
 	}
 }
