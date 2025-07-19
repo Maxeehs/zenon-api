@@ -26,9 +26,8 @@ public class ProjectService {
 	public Project getProject(Long id) {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
-		Project existing = projectRepo.findByIdAndOwnerId(id, me.getId())
+		return projectRepo.findByIdAndOwnerId(id, me.getId())
 			.orElseThrow(() -> new EntityNotFoundException("Projet introuvable"));
-		return existing;
 	}
 
 	public Project create(Project newProject) {
