@@ -23,6 +23,13 @@ public class ClientService {
 		return clientRepo.findByOwnerEmail(email);
 	}
 
+	public Client getClient(Long id) {
+		User me = userService.getCurrentUser()
+			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
+		return clientRepo.findByIdAndOwnerId(id, me.getId())
+			.orElseThrow(() -> new EntityNotFoundException("Client introuvable"));
+	}
+
 	public Client create(Client dto) {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));

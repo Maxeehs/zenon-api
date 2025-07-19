@@ -30,6 +30,11 @@ public class ClientController {
 		return clientService.listMyClients();
 	}
 
+	@GetMapping("/{id}")
+	public Client getMyClients(@PathVariable Long id) {
+		return clientService.getClient(id);
+	}
+
 	@PostMapping
 	public ResponseEntity<Client> create(@RequestBody @Valid Client client) {
 		Client saved = clientService.create(client);
