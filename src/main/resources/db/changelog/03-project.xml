@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+	<changeSet id="01-create-table" author="maxime">
+		<createTable tableName="project">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="nom" type="VARCHAR(255)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="user_id" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="client_id" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="02-add-client-and-user-fk" author="maxime">
+		<addForeignKeyConstraint baseTableName="project"
+								 baseColumnNames="user_id"
+								 referencedTableName="user"
+								 referencedColumnNames="id"
+								 constraintName="fk_user_project"/>
+
+		<addForeignKeyConstraint baseTableName="project"
+								 baseColumnNames="client_id"
+								 referencedTableName="client"
+								 referencedColumnNames="id"
+								 constraintName="client_project"/>
+	</changeSet>
+</databaseChangeLog>
