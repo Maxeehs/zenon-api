@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfig {
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthenticationFilter jwtFilter) throws Exception {
 		http
@@ -30,18 +30,18 @@ public class SecurityConfig {
 				.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.cors(Customizer.withDefaults())
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/api/auth/**", "swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
+						.requestMatchers("/api/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**").permitAll()
 						.anyRequest().authenticated()
 				).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-		
+
 		return http.build();
 	}
-	
+
 	@Bean
 	public AuthenticationManager authManager(AuthenticationConfiguration cfg) throws Exception {
 		return cfg.getAuthenticationManager();
 	}
-	
+
 	@Bean
 	public UserDetailsService userDetailsService(UserRepository userRepository) {
 		return email -> userRepository.findUserByEmail(email)
