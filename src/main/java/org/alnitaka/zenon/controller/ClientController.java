@@ -1,5 +1,6 @@
 package org.alnitaka.zenon.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -26,22 +27,26 @@ public class ClientController {
 	private final ClientService clientService;
 
 	@GetMapping
+	@Operation(summary = "Liste les clients de l'utilisateur courant")
 	public List<Client> getMyClients() {
 		return clientService.listMyClients();
 	}
 
 	@GetMapping("/{id}")
+	@Operation(summary = "Récupère un client par son ID")
 	public Client getMyClients(@PathVariable Long id) {
 		return clientService.getClient(id);
 	}
 
 	@PostMapping
+	@Operation(summary = "Crée un nouveau client")
 	public ResponseEntity<Client> create(@RequestBody @Valid Client client) {
 		Client saved = clientService.create(client);
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 
 	@PutMapping("/{id}")
+	@Operation(summary = "Met à jour un client existant")
 	public Client update(@PathVariable Long id,
 						 @RequestBody @Valid Client client) {
 		return clientService.update(id, client);
@@ -49,6 +54,7 @@ public class ClientController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@Operation(summary = "Supprime un client par son ID")
 	public void delete(@PathVariable Long id) {
 		clientService.delete(id);
 	}

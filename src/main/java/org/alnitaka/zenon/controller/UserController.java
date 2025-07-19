@@ -24,13 +24,13 @@ public class UserController {
 	private final UserService userService;
 
 	@GetMapping
-	@Operation
+	@Operation(summary = "Liste tous les utilisateurs")
 	public ResponseEntity<List<User>> getAllUsers() {
 		return ResponseEntity.ok().body(userRepository.findAll());
 	}
 
 	@GetMapping("/me")
-	@Operation
+	@Operation(summary = "Récupère l'utilisateur courant")
 	public ResponseEntity<UserDTO> getCurrentUser() {
 		return userService.getCurrentUser().map((User user) -> {
 			UserDTO userDTO = new UserDTO(user.getId(), user.getDateCreation(), user.getEmail(), user.getLastname(), user.getFirstname(), user.isActive(), user.getRoles());
@@ -39,14 +39,14 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	@Operation
+	@Operation(summary = "Récupère un utilisateur par son ID")
 	public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
 		userRepository.findById(id).ifPresent((User user) -> ResponseEntity.ok().body(user));
 		return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/{email}")
-	@Operation
+	@Operation(summary = "Récupère un utilisateur par son email")
 	public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
 		userRepository.findUserByEmail(email).ifPresent((User user) -> ResponseEntity.ok().body(user));
 		return ResponseEntity.notFound().build();

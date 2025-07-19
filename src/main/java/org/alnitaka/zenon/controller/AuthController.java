@@ -35,7 +35,7 @@ public class AuthController {
 	private final PasswordEncoder passwordEncoder;
 
 	@PostMapping("/login")
-	@Operation
+	@Operation(summary = "Connecte l'utilisateur et renvoie un token JWT")
 	public ResponseEntity<JwtResponse> login(@RequestBody @Valid LoginRequest req) {
 		Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword()));
 		String jwt = tokenProvider.generateToken(auth);
@@ -43,7 +43,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	@Operation
+	@Operation(summary = "Inscrit un nouvelle utilisateur et renvoie un token JWT")
 	public ResponseEntity<JwtResponse> register(@RequestBody @Valid RegisterRequest req) {
 		// Vérifier si l'utilisateur existe déjà
 		if (userRepository.findUserByEmail(req.getEmail()).isPresent()) {
