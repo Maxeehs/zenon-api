@@ -2,22 +2,19 @@ package org.alnitaka.zenon.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.entity.Client;
 import org.alnitaka.zenon.entity.User;
 import org.alnitaka.zenon.repository.ClientRepository;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
+@RequiredArgsConstructor
 @Service
 public class ClientService {
 	private final ClientRepository clientRepo;
 	private final UserService userService;
 	private static final String NO_AUTH = "Non authentifié";
-
-	public ClientService(ClientRepository clientRepo, UserService userService) {
-		this.clientRepo = clientRepo;
-		this.userService = userService;
-	}
 
 	public List<Client> listMyClients() {
 		String email = userService.getCurrentUser()

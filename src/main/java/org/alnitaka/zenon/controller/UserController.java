@@ -3,6 +3,7 @@ package org.alnitaka.zenon.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.entity.User;
 import org.alnitaka.zenon.entity.dto.UserDTO;
 import org.alnitaka.zenon.repository.UserRepository;
@@ -15,23 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "User")
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/users")
 public class UserController {
-	
+
 	private final UserRepository userRepository;
 	private final UserService userService;
-	
-	public UserController(UserRepository userRepository, UserService userService) {
-		this.userRepository = userRepository;
-		this.userService = userService;
-	}
-	
+
 	@GetMapping
 	@Operation
 	public ResponseEntity<List<User>> getAllUsers() {
 		return ResponseEntity.ok().body(userRepository.findAll());
 	}
-	
+
 	@GetMapping("/me")
 	@Operation
 	public ResponseEntity<UserDTO> getCurrentUser() {
@@ -40,14 +37,14 @@ public class UserController {
 			return ResponseEntity.ok(userDTO);
 		}).orElseGet(() -> ResponseEntity.status(401).build());
 	}
-	
+
 	@GetMapping("/{id}")
 	@Operation
 	public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
 		userRepository.findById(id).ifPresent((User user) -> ResponseEntity.ok().body(user));
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/{email}")
 	@Operation
 	public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {

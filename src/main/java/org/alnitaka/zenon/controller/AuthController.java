@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.Set;
+import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.entity.User;
 import org.alnitaka.zenon.entity.request.JwtResponse;
 import org.alnitaka.zenon.entity.request.LoginRequest;
@@ -24,21 +25,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Tag(name = "Authentication")
+@RequiredArgsConstructor
 @RequestMapping(value = "/api/auth")
 public class AuthController {
-	
+
 	private final AuthenticationManager authManager;
 	private final JwtTokenProvider tokenProvider;
 	private final UserRepository userRepository;
 	private final PasswordEncoder passwordEncoder;
-	
-	public AuthController(AuthenticationManager authManager, JwtTokenProvider tokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder) {
-		this.authManager = authManager;
-		this.tokenProvider = tokenProvider;
-		this.userRepository = userRepository;
-		this.passwordEncoder = passwordEncoder;
-	}
-	
+
 	@PostMapping("/login")
 	@Operation
 	public ResponseEntity<JwtResponse> login(@RequestBody @Valid LoginRequest req) {
@@ -46,7 +41,7 @@ public class AuthController {
 		String jwt = tokenProvider.generateToken(auth);
 		return ResponseEntity.ok(new JwtResponse(jwt));
 	}
-	
+
 	@PostMapping("/register")
 	@Operation
 	public ResponseEntity<JwtResponse> register(@RequestBody @Valid RegisterRequest req) {
@@ -63,7 +58,7 @@ public class AuthController {
 		newUser.setActive(true);
 		newUser.setRoles(Set.of(Role.ROLE_USER));
 		userRepository.save(newUser);
-		
+
 		// Authentifier l'utilisateur pour générer le JWT
 		Authentication auth = authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(req.getEmail(), req.getPassword())

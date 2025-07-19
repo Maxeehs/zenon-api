@@ -16,6 +16,7 @@ import jakarta.persistence.FetchType;
 import java.util.Set;
 import java.util.HashSet;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.alnitaka.zenon.security.Role;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,6 +27,7 @@ import static jakarta.persistence.TemporalType.TIMESTAMP;
 @Getter
 @Setter
 @Table
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -73,8 +75,5 @@ public class User {
 
 	public User(String email) {
 		this.email = email;
-	}
-
-	public User() {
 	}
 }
