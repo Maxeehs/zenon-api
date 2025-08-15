@@ -14,25 +14,25 @@ public class SwaggerConfiguration {
 	}
 
 	@Bean
-	public GroupedOpenApi Authentication() {
+	public GroupedOpenApi authentication() {
 		String[] paths = {"/api/auth/**",};
 		return GroupedOpenApi.builder().group("Authentication").pathsToMatch(paths).build();
 	}
 
 	@Bean
-	public GroupedOpenApi User() {
+	public GroupedOpenApi user() {
 		String[] paths = {"/api/users/**",};
 		return GroupedOpenApi.builder().group("User").pathsToMatch(paths).build();
 	}
 
 	@Bean
-	public GroupedOpenApi Client() {
+	public GroupedOpenApi client() {
 		String[] paths = {"/api/clients/**",};
 		return GroupedOpenApi.builder().group("Client").pathsToMatch(paths).build();
 	}
 
 	@Bean
-	public GroupedOpenApi Project() {
+	public GroupedOpenApi project() {
 		String[] paths = {"/api/project/**",};
 		return GroupedOpenApi.builder().group("Project").pathsToMatch(paths).build();
 	}
