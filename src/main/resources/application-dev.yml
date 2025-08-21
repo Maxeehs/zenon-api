@@ -11,4 +11,4 @@ spring:
 
 jwt:
   secret: araFhDdzAd4CIgmSQVkHAIDSZKvryh86b01lhBVGEcmFTUj67bEj45rSwK87k-g2Yx5xtYD2SjfRaUEVaJQCBA==
-  expiration-ms: 3600000   # 1 heurew
+  expiration-ms: 3600000   # 1 heure
