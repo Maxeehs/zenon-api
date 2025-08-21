@@ -1,6 +1,5 @@
 package org.alnitaka.zenon.service;
 
-import jakarta.security.auth.message.AuthException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.access.AccessDeniedException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,32 +23,30 @@ public class ClientServiceTest {
 
 	@InjectMocks
 	private ClientService clientService;
-
 	@Mock
 	private ClientRepository clientRepo;
-
 	@Mock
 	private UserService userService;
 
 	@Test
-	public void testListMyClients_NoAuth() throws AuthException {
+	public void testListMyClients_NoAuth() {
 		when(userService.getCurrentUser()).thenReturn(Optional.empty());
 		assertThrows(AccessDeniedException.class, () -> clientService.listMyClients());
 	}
 
 	@Test
-	public void testListMyClients_EmptyClientList() throws AuthException {
+	public void testListMyClients_EmptyClientList() {
 		User user = new User();
 		user.setEmail("test@example.com");
 		when(userService.getCurrentUser()).thenReturn(Optional.of(user));
-		when(clientRepo.findByOwnerEmail("test@example.com")).thenReturn(Arrays.asList());
+		when(clientRepo.findByOwnerEmail("test@example.com")).thenReturn(List.of());
 
 		List<Client> clients = clientService.listMyClients();
 		assertTrue(clients.isEmpty());
 	}
 
 	@Test
-	public void testListMyClients_WithClients() throws AuthException {
+	public void testListMyClients_WithClients() {
 		User user = new User();
 		user.setEmail("test@example.com");
 		when(userService.getCurrentUser()).thenReturn(Optional.of(user));
