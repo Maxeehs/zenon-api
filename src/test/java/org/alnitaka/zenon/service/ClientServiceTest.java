@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ClientServiceTest {
+class ClientServiceTest {
 
 	@InjectMocks
 	private ClientService clientService;
@@ -29,13 +29,13 @@ public class ClientServiceTest {
 	private UserService userService;
 
 	@Test
-	public void testListMyClients_NoAuth() {
+	void testListMyClients_NoAuth() {
 		when(userService.getCurrentUser()).thenReturn(Optional.empty());
 		assertThrows(AccessDeniedException.class, () -> clientService.listMyClients());
 	}
 
 	@Test
-	public void testListMyClients_EmptyClientList() {
+	void testListMyClients_EmptyClientList() {
 		User user = new User();
 		user.setEmail("test@example.com");
 		when(userService.getCurrentUser()).thenReturn(Optional.of(user));
@@ -46,7 +46,7 @@ public class ClientServiceTest {
 	}
 
 	@Test
-	public void testListMyClients_WithClients() {
+	void testListMyClients_WithClients() {
 		User user = new User();
 		user.setEmail("test@example.com");
 		when(userService.getCurrentUser()).thenReturn(Optional.of(user));
