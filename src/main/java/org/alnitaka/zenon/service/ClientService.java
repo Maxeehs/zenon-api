@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.dto.ClientDto;
+import org.alnitaka.zenon.dto.UserDto;
 import org.alnitaka.zenon.entity.Client;
 import org.alnitaka.zenon.entity.User;
 import org.alnitaka.zenon.mapper.ClientMapper;
@@ -81,15 +82,20 @@ public class ClientService {
 	 * @throws EntityNotFoundException if a client with the given {@code id} does not exist
 	 *                                 for the current user
 	 */
-	public Client update(Long id, ClientDto dto) {
+	public Client update(ClientDto dto) {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
-		Client existing = clientRepo.findByIdAndOwnerId(id, me.getId())
+		Client existing = clientRepo.findByIdAndOwnerId(dto.id(), me.getId())
 			.orElseThrow(() -> new EntityNotFoundException(NO_CLIENT));
+		User owner = existing.getOwner();
 		// Appliquer les changements voulus
 		existing.setNom(dto.nom());
 		existing.setEmail(dto.email());
-		if (!dto.owner().id().equals(existing.getOwner().getId())) {
+		if (
+			owner != null
+			&& dto.owner() != null
+			&& !dto.owner().id().equals(owner.getId())
+		) {
 			User newUser = userRepository.findById(dto.owner().id()).orElseThrow();
 			existing.setOwner(newUser);
 		}

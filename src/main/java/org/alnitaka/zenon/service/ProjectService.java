@@ -69,6 +69,11 @@ public class ProjectService {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
 		newProject.setOwner(me);
+
+		if (dto.client()!= null && dto.client().id() != null) {
+			Client newClient = clientRepository.findById(dto.client().id()).orElseThrow();
+			newProject.setClient(newClient);
+		}
 		return projectRepo.save(newProject);
 	}
 
@@ -86,20 +91,26 @@ public class ProjectService {
 	 * @param dto  the data transfer object containing the new values
 	 * @return the updated {@link Project} instance
 	 */
-	public Project update(Long id, ProjectDto dto) {
+	public Project update(ProjectDto dto) {
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
-		Project existing = projectRepo.findByIdAndOwnerId(id, me.getId())
+		Project existing = projectRepo.findByIdAndOwnerId(dto.id(), me.getId())
 			.orElseThrow(() -> new EntityNotFoundException(NO_PROJECT));
 		// Appliquer les changements voulus
 		existing.setNom(dto.nom());
-		if (!dto.owner().id().equals(existing.getOwner().getId())) {
+		if (
+			dto.owner() != null
+			&& existing.getOwner() != null
+			&& !dto.owner().id().equals(existing.getOwner().getId())
+		) {
 			User newUser = userRepository.findById(dto.owner().id()).orElseThrow();
 			existing.setOwner(newUser);
 		}
-		if (!dto.client().id().equals(existing.getClient().getId())) {
+		if (dto.client() != null) {
 			Client newClient = clientRepository.findById(dto.client().id()).orElseThrow();
 			existing.setClient(newClient);
+		} else {
+			existing.setClient(null);
 		}
 		return projectRepo.save(existing);
 	}

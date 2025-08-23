@@ -73,8 +73,8 @@ public class ClientController {
 
 	@PutMapping("/{id}")
 	@Operation(summary = "Met à jour un client existant")
-	public ClientDto update(@PathVariable Long id, @RequestBody @Valid ClientDto client) {
-		return clientMapper.toDto(clientService.update(id, client));
+	public ClientDto update(@RequestBody @Valid ClientDto client) {
+		return clientMapper.toDto(clientService.update(client));
 	}
 
 	@DeleteMapping("/{id}")

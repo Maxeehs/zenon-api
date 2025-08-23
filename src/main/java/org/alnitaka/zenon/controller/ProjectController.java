@@ -50,8 +50,8 @@ public class ProjectController {
 
 	@PutMapping("/{id}")
 	@Operation(summary = "Met à jour un projet existant")
-	public ProjectDto update(@PathVariable Long id, @RequestBody @Valid ProjectDto project) {
-		return projectMapper.toDto(projectService.update(id, project));
+	public ProjectDto update(@RequestBody @Valid ProjectDto project) {
+		return projectMapper.toDto(projectService.update(project));
 	}
 
 	@DeleteMapping("/{id}")
