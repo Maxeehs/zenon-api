@@ -5,7 +5,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.alnitaka.zenon.dto.ProjectDto;
 import org.alnitaka.zenon.entity.Project;
+import org.alnitaka.zenon.mapper.ProjectMapper;
 import org.alnitaka.zenon.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,31 +27,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/project")
 public class ProjectController {
 	private final ProjectService projectService;
+	private final ProjectMapper projectMapper;
 
 	@GetMapping
 	@Operation(summary = "Liste les projets de l'utilisateur courant")
-	public List<Project> getMyProjects() {
-		return projectService.listProjects();
+	public List<ProjectDto> getMyProjects() {
+		return projectMapper.toDto(projectService.listProjects());
 	}
 
 	@GetMapping("/{id}")
 	@Operation(summary = "Récupère un projet par son ID")
-	public Project getMyProjects(@PathVariable Long id) {
-		return projectService.getProject(id);
+	public ProjectDto getMyProjects(@PathVariable Long id) {
+		return projectMapper.toDto(projectService.getProject(id));
 	}
 
 	@PostMapping
 	@Operation(summary = "Crée un nouveau projet")
-	public ResponseEntity<Project> create(@RequestBody @Valid Project client) {
-		Project saved = projectService.create(client);
+	public ResponseEntity<ProjectDto> create(@RequestBody @Valid ProjectDto project) {
+		ProjectDto saved = projectMapper.toDto(projectService.create(project));
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 
 	@PutMapping("/{id}")
 	@Operation(summary = "Met à jour un projet existant")
-	public Project update(@PathVariable Long id,
-						 @RequestBody @Valid Project client) {
-		return projectService.update(id, client);
+	public ProjectDto update(@PathVariable Long id, @RequestBody @Valid ProjectDto project) {
+		return projectMapper.toDto(projectService.update(id, project));
 	}
 
 	@DeleteMapping("/{id}")
