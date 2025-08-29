@@ -61,9 +61,9 @@ public class ClientService {
 	 * @return the persisted {@link Client} instance
 	 */
 	public Client create(ClientDto dto) {
-		Client newUser = clientMapper.toEntity(dto);
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
+		Client newUser = clientMapper.toEntity(dto);
 		newUser.setOwner(me);
 		return clientRepo.save(newUser);
 	}
@@ -74,8 +74,7 @@ public class ClientService {
 	 * modified. The method ensures that the client belongs to the currently authenticated
 	 * user and persists the changes via {@link ClientRepository}.
 	 *
-	 * @param id     the unique identifier of the client to update
-	 * @param update a {@link Client} containing the new {@code nom} and {@code email}
+	 * @param dto a {@link Client} containing the new {@code nom} and {@code email}
 	 * @return the updated client represented as a {@link ClientDto}
 	 * @throws AccessDeniedException if no user is currently authenticated
 	 * @throws EntityNotFoundException if a client with the given {@code id} does not exist
