@@ -87,7 +87,6 @@ public class ProjectService {
 	 * entities are retrieved and assigned. The updated project is persisted and
 	 * returned.
 	 *
-	 * @param id   the identifier of the project to update
 	 * @param dto  the data transfer object containing the new values
 	 * @return the updated {@link Project} instance
 	 */
