@@ -1,6 +1,6 @@
 # Politique de sécurité
 
-Merci d’aider à sécuriser <NOM_DU_PROJET> en nous signalant toute vulnérabilité de manière responsable.
+Merci d’aider à sécuriser l'API Zenon en nous signalant toute vulnérabilité de manière responsable.
 
 ## 📦 Périmètre
 Cette politique couvre :
@@ -44,9 +44,6 @@ Si vous respectez cette politique :
 - Nous considérerons la recherche comme autorisée, tant qu’elle reste proportionnée et non destructive.
 - Ce Safe Harbor ne couvre pas les actions illégales ni les violations de droits de tiers.
 
-## 🧰 Classement de sévérité
-Nous évaluons avec **CVSS v3.1** (ou v4.0 si applicable) et classons : Critique / Élevée / Modérée / Faible.
-
 ## 🛠️ Processus de correction
 1. Accusé de réception et attribution d’un identifiant interne.
 2. Reproduction, évaluation de l’impact, score CVSS.
@@ -68,9 +65,4 @@ Nous évaluons avec **CVSS v3.1** (ou v4.0 si applicable) et classons : Critique
 - Version explicitement non supportée.
 - Self-XSS, clickjacking sans contexte sensible, enumeration non sensible, info-leaks à faible impact sans données privées.
 
-## 🧭 Contact d’urgence
-En cas de risque critique et largement exploité : **security@<ton-domaine>** (objet “URGENT”).
-
 ---
-
-_Optionnel mais recommandé en prod : publier un `/.well-known/security.txt` pointant vers ce document et votre contact sécurité._
