@@ -3,8 +3,6 @@ package org.alnitaka.zenon.config;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.alnitaka.zenon.entity.User;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
 import org.alnitaka.zenon.repository.UserRepository;
 import org.alnitaka.zenon.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +13,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;

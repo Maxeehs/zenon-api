@@ -11,8 +11,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.dto.ClientDto;
-import org.alnitaka.zenon.dto.UserDto;
-import org.alnitaka.zenon.entity.Client;
 import org.alnitaka.zenon.mapper.ClientMapper;
 import org.alnitaka.zenon.service.ClientService;
 import org.springframework.http.HttpStatus;
@@ -71,7 +69,7 @@ public class ClientController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping
 	@Operation(summary = "Met à jour un client existant")
 	public ClientDto update(@RequestBody @Valid ClientDto client) {
 		return clientMapper.toDto(clientService.update(client));

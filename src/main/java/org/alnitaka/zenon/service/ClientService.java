@@ -4,7 +4,6 @@ import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.dto.ClientDto;
-import org.alnitaka.zenon.dto.UserDto;
 import org.alnitaka.zenon.entity.Client;
 import org.alnitaka.zenon.entity.User;
 import org.alnitaka.zenon.mapper.ClientMapper;

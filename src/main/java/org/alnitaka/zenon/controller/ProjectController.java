@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.alnitaka.zenon.dto.ProjectDto;
-import org.alnitaka.zenon.entity.Project;
 import org.alnitaka.zenon.mapper.ProjectMapper;
 import org.alnitaka.zenon.service.ProjectService;
 import org.springframework.http.HttpStatus;
@@ -48,7 +47,7 @@ public class ProjectController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping
 	@Operation(summary = "Met à jour un projet existant")
 	public ProjectDto update(@RequestBody @Valid ProjectDto project) {
 		return projectMapper.toDto(projectService.update(project));
