@@ -39,3 +39,4 @@ spring:
   jwt:
     secret: <clé secrète>
     expiration-ms: 3600000 # 1h
+```
