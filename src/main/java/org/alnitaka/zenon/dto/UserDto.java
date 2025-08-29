@@ -9,6 +9,13 @@ import org.alnitaka.zenon.security.Role;
 /**
  * DTO for {@link org.alnitaka.zenon.entity.User}
  */
-public record UserDto(Long id, Date dateCreation, @NotNull String email, String lastname, String firstname,
-					  boolean active, Set<Role> roles) implements Serializable {
+public record UserDto(
+	Long id,
+	Date dateCreation,
+	@NotNull String email,
+	String lastname,
+	String firstname,
+	boolean active,
+	Set<Role> roles
+) implements Serializable {
 }
