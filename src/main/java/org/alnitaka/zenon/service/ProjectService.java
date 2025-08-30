@@ -65,9 +65,9 @@ public class ProjectService {
 	 * @throws AccessDeniedException if no authenticated user is found
 	 */
 	public Project create(ProjectDto dto) {
-		Project newProject = projectMapper.toEntity(dto);
 		User me = userService.getCurrentUser()
 			.orElseThrow(() -> new AccessDeniedException(NO_AUTH));
+		Project newProject = projectMapper.toEntity(dto);
 		newProject.setOwner(me);
 
 		if (dto.client()!= null && dto.client().id() != null) {
