@@ -10,7 +10,13 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(
+	unmappedTargetPolicy = ReportingPolicy.IGNORE,
+	componentModel = MappingConstants.ComponentModel.SPRING,
+	uses = {
+		TaskMapper.class
+	}
+)
 public interface ProjectMapper {
 	Project toEntity(ProjectDto projectDto);
 
